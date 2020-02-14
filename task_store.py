@@ -24,7 +24,10 @@ class TaskList:
             self.task_list[str(max(keys) + 1)] = row
 
     def remove_task(self, id):
-        del self.task_list[id]
+        try:
+            del self.task_list[id]
+        except KeyError:
+            print("not a valid id")
 
     def save_tasks(self):
         with open("task_list.json", "w+") as js_file:
@@ -36,21 +39,34 @@ class TaskList:
                 self.task_list = dict(json.load(js_file))
 
     def remove_done(self, id):
-        row = self.task_list[id]
+        try:
+            row = self.task_list[id]
+        except KeyError:
+            print("not a valid id")
+
         self.task_list[id] = row.replace("\033[0;32m ✓\033[0m", "")
 
     def remove_doing(self, id):
-        row = self.task_list[id]
+        try:
+            row = self.task_list[id]
+        except KeyError:
+            print("not a valid id")
         self.task_list[id] = row.replace("\033[1;33m ●\033[0m", "")
 
     def track_done_task(self, id):
-        if "●" in self.task_list[id]:
-            self.task_list[id] = self.task_list[id].replace("\033[1;33m ●\033[0m", "\033[0;32m ✓\033[0m")
-        else:
-            self.task_list[id] += "\033[0;32m ✓\033[0m"
+        try:
+            if "●" in self.task_list[id]:
+                self.task_list[id] = self.task_list[id].replace("\033[1;33m ●\033[0m", "\033[0;32m ✓\033[0m")
+            else:
+                self.task_list[id] += "\033[0;32m ✓\033[0m"
+        except KeyError:
+            print("not a valid id")
 
     def track_doing_task(self, id):
-        if "✓" in self.task_list[id]:
-            self.task_list[id] = self.task_list[id].replace("\033[0;32m ✓\033[0m", "\033[1;33m ●\033[0m")
-        else:
-            self.task_list[id] += "\033[1;33m ●\033[0m"
+        try:
+            if "✓" in self.task_list[id]:
+                self.task_list[id] = self.task_list[id].replace("\033[0;32m ✓\033[0m", "\033[1;33m ●\033[0m")
+            else:
+                self.task_list[id] += "\033[1;33m ●\033[0m"
+        except KeyError:
+            print("not a valid id")
