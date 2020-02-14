@@ -13,27 +13,30 @@ def list_tasks():
 
 def menu():
     cmd = input("\033[1m\033[0;36m>\033[0m ")
-    if cmd[0] == "a":
+    if cmd[0] == "a" and cmd[1] == " ":
         tl.add_task(cmd[2:])
 
-    elif cmd[0] == "r":
+    elif cmd[0] == "r" and cmd[1] == " ":
         tl.remove_task(cmd[2:])
 
-    elif cmd[0] == "c":
+    elif cmd[0] == "c" and cmd[1] == " ":
         tl.track_done_task(cmd[2:])
 
-    elif cmd[0] == "d":
+    elif cmd[0] == "d" and cmd[1] == " ":
         tl.track_doing_task(cmd[2:])
 
-    elif cmd[0] == "z":
+    elif cmd[0] == "z" and cmd[1] == " ":
         tl.remove_done(cmd[2:])
 
-    elif cmd[0] == "x":
+    elif cmd[0] == "x" and cmd[1] == " ":
         tl.remove_doing(cmd[2:])
 
     elif cmd == "e":
         os.system("clear")
         exit()
+
+    else:
+        pass
 
 
 while True:
